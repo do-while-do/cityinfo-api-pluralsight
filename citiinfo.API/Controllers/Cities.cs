@@ -7,6 +7,13 @@ namespace citiinfo.API.Controllers
     [Route("api/cities")]
     public class CitiesController : ControllerBase
     {
+        private readonly CitiesDataStore citiesDataStore;
+
+        public CitiesController(CitiesDataStore citiesDataStore)
+        {
+            this.citiesDataStore = citiesDataStore ?? throw new ArgumentNullException(nameof(citiesDataStore));
+        }
+
         // public JsonResult GetCities()
         // {
         //     return new JsonResult(new [] {
@@ -20,22 +27,22 @@ namespace citiinfo.API.Controllers
         public ActionResult<IEnumerable<CityDto>> GetCities()
         {
 
-            // var temp = new JsonResult(CitiesDataStore.Current.Cities);
+            // var temp = new JsonResult(this.citiesDataStore.Cities);
             // temp.StatusCode = 200;
-            // return new JsonResult(CitiesDataStore.Current.Cities);
-            return Ok(CitiesDataStore.Current.Cities);
+            // return new JsonResult(this.citiesDataStore.Cities);
+            return Ok(this.citiesDataStore.Cities);
         }
 
         [HttpGet("{id}")]
         public ActionResult<CityDto> GetCity(int id)
         {
-            var cityToReturn = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
+            var cityToReturn = this.citiesDataStore.Cities.FirstOrDefault(c => c.Id == id);
             if (cityToReturn == null)
             {
                 return NotFound();
             }
             return Ok(cityToReturn);
-            // return new JsonResult(CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id));
+            // return new JsonResult(this.citiesDataStore.Cities.FirstOrDefault(c => c.Id == id));
         }
     }
 }

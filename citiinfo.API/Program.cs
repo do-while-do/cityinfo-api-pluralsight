@@ -1,8 +1,9 @@
 using citiinfo.API;
 using citiinfo.API.Services;
+using cityinfo.API.DbContexts;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
- 
 
 Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.Console().WriteTo.File("logs/cityinfo.txt", rollingInterval: RollingInterval.Day).CreateLogger();
 
@@ -31,6 +32,7 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
 
 builder.Services.AddSingleton<CitiesDataStore>();
+builder.Services.AddDbContext<CityInfoContext>(dbContextOptions => dbContextOptions.UseNpgsql("Host=localhost:5433;Database=cityinfo;Username=postgres-user;Password=postgres-user123456789"));
 
 var app = builder.Build();
 

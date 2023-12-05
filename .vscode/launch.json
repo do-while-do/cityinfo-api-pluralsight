@@ -12,6 +12,7 @@
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/citiinfo.API/bin/Debug/net7.0/citiinfo.API.dll",
+            // "program": "${workspaceFolder}/citiinfo.API/bin/Release/net7.0/citiinfo.API.dll",
             "args": [],
             "cwd": "${workspaceFolder}/citiinfo.API",
             "stopAtEntry": false,
@@ -21,6 +22,7 @@
             //     "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
             // },
             "env": {
+                // "ASPNETCORE_ENVIRONMENT": "Production"
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {

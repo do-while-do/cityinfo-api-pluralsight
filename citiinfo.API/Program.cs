@@ -32,7 +32,11 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
 
 builder.Services.AddSingleton<CitiesDataStore>();
-builder.Services.AddDbContext<CityInfoContext>(dbContextOptions => dbContextOptions.UseNpgsql("Host=localhost:5433;Database=cityinfo;Username=postgres-user;Password=postgres-user123456789"));
+builder.Services.AddDbContext<CityInfoContext>(dbContextOptions => dbContextOptions.UseNpgsql(
+    builder.Configuration["ConnectionStrings:CityInfoDBConnectionString"]
+));
+
+builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
 
 var app = builder.Build();
 
